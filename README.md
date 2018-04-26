@@ -1,0 +1,2 @@
+# Wallet
+XCG wallet
