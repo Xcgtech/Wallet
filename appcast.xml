@@ -9,10 +9,10 @@
 
 	<channel>
 		<title>XChange Changelog</title>
-		<link>http://github.com/Xcgtech/Wallet/Appcast.xml</link>
+		<link>http://github.com/Xcgtech/Wallet/appcast.xml</link>
 		<description>Most recent changes with links to updates.</description>
 		<language>en</language>
-		<atom:link href="http://github.com/Xcgtech/Wallet/Appcast.xml" rel="self" type="application/rss+xml" />
+		<atom:link href="http://github.com/Xcgtech/Wallet/appcast.xml" rel="self" type="application/rss+xml" />
 
 		<item>
 			<title>Version 12.2.3 (2 bugs fixed; 3 new features)</title>
