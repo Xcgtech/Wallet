@@ -1,0 +1,6 @@
+usr/local/bin/Xchange-qt usr/bin
+share/pixmaps/Xchange32.xpm usr/share/pixmaps
+share/pixmaps/Xchange16.xpm usr/share/pixmaps
+share/pixmaps/Xchange128.png usr/share/pixmaps
+debian/Xchange-qt.desktop usr/share/applications
+debian/Xchange-qt.protocol usr/share/kde4/services/

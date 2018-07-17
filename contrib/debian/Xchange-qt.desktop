@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Xchange
+Comment=Xchange P2P Cryptocurrency
+Comment[fr]=Xchange, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Xchange, eşten eşe kriptografik sanal para birimi
+Exec=Xchange-qt %u
+Terminal=false
+Type=Application
+Icon=Xchange128
+MimeType=x-scheme-handler/Xchange;
+Categories=Office;Finance;

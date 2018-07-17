@@ -1,0 +1,20 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/translations">
+        <file alias="bg">locale/Xchange_bg.qm</file>
+        <file alias="de">locale/Xchange_de.qm</file>
+        <file alias="en">locale/Xchange_en.qm</file>
+        <file alias="es">locale/Xchange_es.qm</file>
+        <file alias="fi">locale/Xchange_fi.qm</file>
+        <file alias="fr">locale/Xchange_fr.qm</file>
+        <file alias="it">locale/Xchange_it.qm</file>
+        <file alias="ja">locale/Xchange_ja.qm</file>
+        <file alias="pl">locale/Xchange_pl.qm</file>
+        <file alias="pt">locale/Xchange_pt.qm</file>
+        <file alias="ru">locale/Xchange_ru.qm</file>
+        <file alias="sk">locale/Xchange_sk.qm</file>
+        <file alias="sv">locale/Xchange_sv.qm</file>
+        <file alias="vi">locale/Xchange_vi.qm</file>
+        <file alias="zh_CN">locale/Xchange_zh_CN.qm</file>
+        <file alias="zh_TW">locale/Xchange_zh_TW.qm</file>
+    </qresource>
+</RCC>

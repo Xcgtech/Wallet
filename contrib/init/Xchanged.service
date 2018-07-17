@@ -1,0 +1,22 @@
+[Unit]
+Description=Xchange's distributed currency daemon
+After=network.target
+
+[Service]
+User=Xchangecore
+Group=Xchangecore
+
+Type=forking
+PIDFile=/var/lib/Xchanged/Xchanged.pid
+ExecStart=/usr/bin/Xchanged -daemon -pid=/var/lib/Xchanged/Xchanged.pid \
+-conf=/etc/Xchangecore/Xchange.conf -datadir=/var/lib/Xchanged -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

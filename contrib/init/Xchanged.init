@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+#  Xchanged The Xchange Core server.
+#
+#
+# chkconfig: 345 80 20
+# description: Xchanged
+# processname: Xchanged
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+# you can override defaults in /etc/sysconfig/Xchanged, see below
+if [ -f /etc/sysconfig/Xchanged ]; then
+        . /etc/sysconfig/Xchanged
+fi
+
+RETVAL=0
+
+prog=Xchanged
+# you can override the lockfile via BITCOIND_LOCKFILE in /etc/sysconfig/Xchanged
+lockfile=${BITCOIND_LOCKFILE-/var/lock/subsys/Xchanged}
+
+# Xchanged defaults to /usr/bin/Xchanged, override with BITCOIND_BIN
+Xchanged=${BITCOIND_BIN-/usr/bin/Xchanged}
+
+# Xchanged opts default to -disablewallet, override with BITCOIND_OPTS
+Xchanged_opts=${BITCOIND_OPTS--disablewallet}
+
+start() {
+    echo -n $"Starting $prog: "
+    daemon $DAEMONOPTS $Xchanged $Xchanged_opts
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status $prog
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: service $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac
