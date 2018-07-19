@@ -101,7 +101,7 @@ public:
         consensus.nZawyLwmaAveragingWindow = 60;
         consensus.nZawyLwmaAjustedWeight = 7253;
         consensus.nPowTargetTimespan = 24 * 60 * 60 * 8; // Xchange: 1 day
-        consensus.nPowTargetSpacing = 150; 
+        consensus.nPowTargetSpacing = 150;
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1916; // 95% of 2016
@@ -136,7 +136,7 @@ public:
         pchMessageStart[0] = 0x6d;
         pchMessageStart[1] = 0x7c;
         pchMessageStart[2] = 0x8b;
-        pchMessageStart[3] = 0x3f;
+        pchMessageStart[3] = 0x6f;
 
 
         vAlertPubKey = ParseHex("04b62b3bb17448c1784dbe2fb235832b8885c5d7debd5e640f7ad523e7baafb6d2eb78560a135aef6bce8cc0d00bac3a50deebd70e0e42faa84a0a66034bfb2213");
