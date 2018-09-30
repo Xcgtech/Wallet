@@ -132,7 +132,7 @@ function setup_initial_config {
 	mkdir -p /home/"$node_user"/"$core_dir"
 	
 	if [[ ! "$BINDIP" ]]; then
-		current_ip=$(curl -s https://v4.ifconfig.co/)
+		current_ip=$(curl -4 -s https://v4.ifconfig.co/)
 	else
 		current_ip="$BINDIP"
 	fi
