@@ -100,7 +100,6 @@ public:
         consensus.powLimit = uint256S("0007ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nZawyLwmaAveragingWindow = 60;
         consensus.XbufferTSA =   //decide your block, new coins place it after N
-        consensus.nZawyLwmaAjustedWeight = 7253;
         consensus.nPowTargetTimespan = 24 * 60 * 60 * 8; // Xchange: 1 day
         consensus.nPowTargetSpacing = 150;
         consensus.fPowAllowMinDifficultyBlocks = false;
