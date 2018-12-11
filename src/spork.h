@@ -31,9 +31,9 @@ static const int SPORK_14_REQUIRE_SENTINEL_FLAG                         = 10013;
 static const int SPORK_15_Kill_OLD_VERSION                              = 10014;
 static const int SPORK_16_ESCROW_ENABLED                                = 10015;
 
-static const int64_t SPORK_2_INSTANTSEND_ENABLED_DEFAULT                = 0;            // ON
+static const int64_t SPORK_2_INSTANTSEND_ENABLED_DEFAULT                = 4070908800ULL;            // ON
 static const int64_t SPORK_3_INSTANTSEND_BLOCK_FILTERING_DEFAULT        = 0;            // ON
-static const int64_t SPORK_5_INSTANTSEND_MAX_VALUE_DEFAULT              = 1000;         // 1000 Xchange
+static const int64_t SPORK_5_INSTANTSEND_MAX_VALUE_DEFAULT              = 0;         // 1000 Xchange
 static const int64_t SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT_DEFAULT     = 0;// On
 static const int64_t SPORK_9_SUPERBLOCKS_ENABLED_DEFAULT                = 4070908800ULL;// OFF
 static const int64_t SPORK_10_MASTERNODE_PAY_UPDATED_NODES_DEFAULT      = 4070908800ULL;// OFF
