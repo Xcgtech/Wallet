@@ -23,9 +23,11 @@ unsigned int GetNextWorkRequiredBTC(const CBlockIndex* pindexLast, const CBlockH
 unsigned int CalculateNextWorkRequiredBTC(const CBlockIndex* pindexLast, int64_t nFirstBlockTime, const Consensus::Params& params);
 
 
-/** Zawy's LWMA - next generation algorithm for testnet currently */
+/** LWMA/Xbuffer/TSA */
 unsigned int LwmaGetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params&);
 unsigned int LwmaCalculateNextWorkRequired(const CBlockIndex* pindexLast, const Consensus::Params& params);
+unsigned int XbufferTSA(const CBlockHeader* pblock, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev);
+
 
 
 /** Check whether a block hash satisfies the proof-of-work requirement specified by nBits */
