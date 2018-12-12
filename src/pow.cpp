@@ -40,9 +40,9 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
 unsigned int LwmaGetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
-     if(params.XbufferTSA<pindexLast->nHeight)  {
+     if(params.XbufferTSAH<pindexLast->nHeight)  {
       return XbufferTSA(pblock,params,pindexLast);}
-     else{  
+     else{
       return LwmaCalculateNextWorkRequired(pindexLast,params);}
 }
 
@@ -55,7 +55,7 @@ unsigned int XbufferTSA(const CBlockHeader* pblock, const Consensus::Params& con
   // Recommend N=120.  Requires Future Time Limit to be set to 30 instead of 7200
   // See FTL instructions here:
   // https://github.com/zawy12/difficulty-algorithms/issues/3#issuecomment-442129791
-  // Important: Pow.cpp is not the only area that needs new conditions or code for TSA.    
+  // Important: Pow.cpp is not the only area that needs new conditions or code for TSA.
   // ONLY LWMA and TSA copy between the #######'s
   //################################################################################################################
   // Begin LWMA
@@ -107,7 +107,7 @@ unsigned int XbufferTSA(const CBlockHeader* pblock, const Consensus::Params& con
      int64_t templateTimestamp = pblock->nTime;
      previousTimestamp = pindexPrev->GetBlockTime();
      const CBlockIndex* badblockcheck = pindexPrev->GetAncestor(height-1); //Only for Xbuffer
-  
+
      ST = std::min(templateTimestamp - previousTimestamp, 6*T);
   //################################################################################################################
   //-------------------------------------------------Xbuffer--------------------------------------------------------
@@ -115,23 +115,23 @@ unsigned int XbufferTSA(const CBlockHeader* pblock, const Consensus::Params& con
        if(SS/N+1<=T/R){SS=(SS/(N+1)/T)*SS;}//if your avg solvetime is abnormally low or a new coin, drop SS to increase Buffer ST
                                            // resultihng in a faster pull towards the real T
        ST = (ST*((SS/(N+1)*1000)/T))/1000;// find the ratio real ST:Sum ST && and use it on the real ST.
-  
+
       if(SC>T/R&&ST==0){ST=SC;}// checkpoint for new coins and network issues - don't remove, keep for new coins.
 
-      if((previousTimestamp-badblockcheck->GetBlockTime())<=(T/R)+R&&ST<T){ // Xbuffer - Mining equalizer. If ST < T/2+R then Next block is a free-fall block. 
+      if((previousTimestamp-badblockcheck->GetBlockTime())<=(T/R)+R&&ST<T){ // Xbuffer - Mining equalizer. If ST < T/2+R then Next block is a free-fall block.
          TSATarget=nextTarget*(1/T);}                                      // Old Miners benefit from new H/S increase
-                                                                                                       
-      else if(ST<T/R||ST>T){TSATarget=nextTarget*((ST/T)+(10/T));}  //The Value 10 is user defined, relates to  speed of diff change on the Xbuffer                               
+
+      else if(ST<T/R||ST>T){TSATarget=nextTarget*((ST/T)+(10/T));}  //The Value 10 is user defined, relates to  speed of diff change on the Xbuffer
                                                                    //sets min and max.
                                                                    //ST will not be constant unti SS/N+1 = T
                                                                   //End of solve time will be a free-fall block
-     else{  
+     else{
    //TSA in a pocket based on the length of T/R to allow fair mining based on raw H/S for Xbuffer.
       int64_t T2=T/R;
       ST = ST-((T/R)-1);
     //-------------------------------------------------Xbuffer--------------------------------------------------------
   //################################################################################################################
-      // relpace all T2 with T if excluding Xbuffer 
+      // relpace all T2 with T if excluding Xbuffer
      // It might be good to turn this e^x equation into a look-up table;
      for ( i = 1; i <= ST/T2/R ; i++ ) {
           exm = (exm*static_cast<int64_t>(2.71828*m))/m;
@@ -174,7 +174,7 @@ unsigned int LwmaCalculateNextWorkRequired(const CBlockIndex* pindexLast, const 
        j++;
        t += solvetime * j;  // Weighted solvetime sum.
 
-    
+
        arith_uint256 target;
        target.SetCompact(block->nBits);
        sum_target += target / (k * N);

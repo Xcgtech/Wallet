@@ -99,7 +99,7 @@ public:
         consensus.BIP34Hash = uint256S("0x000007d91d1254d60e2dd1ae580383070a4ddffa4c64c2eeb4a2f9ecc0414343");
         consensus.powLimit = uint256S("0007ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nZawyLwmaAveragingWindow = 60;
-        consensus.XbufferTSA = 80250;   //decide your block, new coins place it after N
+        consensus.XbufferTSAH = 80250;   //decide your block, new coins place it after N
         consensus.nPowTargetTimespan = 24 * 60 * 60 * 8; // Xchange: 1 day
         consensus.nPowTargetSpacing = 150;
         consensus.fPowAllowMinDifficultyBlocks = false;
@@ -226,7 +226,7 @@ public:
         consensus.BIP34Hash = uint256S("0x0000047d24635e347be3aaaeb66c26be94901a2f962feccd4f95090191f208c1");
         consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
         consensus.nZawyLwmaAveragingWindow = 45;
-        consensus.XbufferTSA =   50//decide your block, new coins place it after N
+        consensus.XbufferTSAH =   50//decide your block, new coins place it after N
         consensus.nPowTargetTimespan = 24 * 60 * 60 * 8; // Xchange: 1 day
         consensus.nPowTargetSpacing = 2.5 * 60; // Xchange: 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = true;
@@ -348,7 +348,7 @@ public:
         consensus.XCGZawyLWMAHeight = -1;
         consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
         consensus.nZawyLwmaAveragingWindow = 45;
-        consensus.XbufferTSA =   50//decide your block, new coins place it after N
+        consensus.XbufferTSAH =   50//decide your block, new coins place it after N
         consensus.nPowTargetTimespan = 24 * 60 * 60 * 8; // Xchange: 1 day
         consensus.nPowTargetSpacing = 2.5 * 60; // Xchange: 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = true;
