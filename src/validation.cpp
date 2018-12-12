@@ -1236,8 +1236,8 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
     //CAmount nSubsidyBase;
     int blockHeight             = nPrevHeight; // The current block height
     nMasternodeCount = mnodeman.CountEnabled(); // Get count of active masternode on the network
-    const int LOCK_PERIOD       = 23160; // 2 months based on 1 min block times
-    const CAmount BASE_REWARD   = 10 * COIN; // Base block reward is 50 XCG
+    const int LOCK_PERIOD       = 23160; // 2 months based on 1 min block times, but we are 2.5 mins readjustment made 12/12/2018
+    const CAmount BASE_REWARD   = 10 * COIN; // Base block reward is 10 XCG
 
 
     // If we have less than the ideal on the network cap the reward so they don't earn too many coins
@@ -1246,13 +1246,13 @@ CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params&
        }else if (nMasternodeCount < 4) {
         nSubsidy = BASE_REWARD;
     }// If we are past the RoI management period
-      else if (blockHeight > (LOCK_PERIOD * 12)) {
+      else if (blockHeight > (LOCK_PERIOD * 8)) {           //need to clean and compress.
             nSubsidy = BASE_REWARD;
         // If we are in the initial RoI management period
       } else if (blockHeight < LOCK_PERIOD) {
             nSubsidy = (2.72 * nMasternodeCount) * COIN;
         // Any time other than the RoI management period
-      } else if (blockHeight < (LOCK_PERIOD * 6)) {
+      } else if (blockHeight < (LOCK_PERIOD * 4)) {
             nSubsidy = ((2.72 * nMasternodeCount) * COIN)/2;
         }
         else {

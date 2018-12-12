@@ -38,7 +38,7 @@ bool IsBlockValueValid(const CBlock& block, int nBlockHeight, CAmount blockRewar
     bool isBlockRewardValueMet = (block.vtx[0].GetValueOut() <= blockReward);
 
 CAmount syncfix = block.vtx[0].GetValueOut()/2.72;
-if  (block.vtx[0].GetValueOut() > blockReward && nBlockHeight <= 241920){
+if  (block.vtx[0].GetValueOut() > blockReward && nBlockHeight <= 185280){//bad way, should pass the var. The decrease in blocks now corrects the spacing correction with now knowing avg ST.
  if( mnodeman.CountEnabled() <= syncfix && nBlockHeight > 1&&sporkManager.GetSporkValue(SPORK_15_Kill_OLD_VERSION)<=CLIENT_VERSION_MINOR){
 bool isBlockRewardValueMet = (block.vtx[0].GetValueOut() > blockReward);
    return isBlockRewardValueMet;}
