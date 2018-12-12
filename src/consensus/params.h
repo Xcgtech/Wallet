@@ -88,6 +88,7 @@ struct Params {
     // Params for Zawy's LWMA difficulty adjustment algorithm.
     int64_t nZawyLwmaAveragingWindow;  // N
     int64_t nZawyLwmaAjustedWeight;  // k = (N+1)/2 * 0.9989^(500/N) * T
+    int64_t XbufferTSAH;  // XbufferTSA H=height
 
   /*  // Params for Digishield difficulty adjustment algorithm. (Used by mainnet currently.)
     int64_t nDigishieldAveragingWindow;
