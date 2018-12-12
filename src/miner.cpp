@@ -67,8 +67,8 @@ int64_t UpdateTime(CBlockHeader* pblock, const Consensus::Params& consensusParam
     if (nOldTime < nNewTime)
         pblock->nTime = nNewTime;
 
-  
-    if(params.XbufferTSA<pindexLast->nHeight)  {
+
+    if(params.XbufferTSA<pindexPrev->nHeight)  {
       if(nNewTime!=nOldTime)
         pblock->nBits = GetNextWorkRequired(pindexPrev, pblock, consensusParams);
                                                }
@@ -503,7 +503,7 @@ void static BitcoinMiner(const CChainParams& chainparams, CConnman& connman)
                 if (UpdateTime(pblock, chainparams.GetConsensus(), pindexPrev) < 0)
                     break; // Recreate the block if the clock has run backwards,
                            // so that we can use the correct time.
-                if (params.XbufferTSA<pindexLast->nHeight)
+                if (params.XbufferTSA<pindexPrev->nHeight)
                 {
                     hashTarget.SetCompact(pblock->nBits);
                 }
