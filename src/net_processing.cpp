@@ -1150,7 +1150,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             return false;
         }
         //Must make an upgrade period, so we use the reason to upgrade
-        if (nVersion < MIN_PEER_PROTO_VERSION && chainparams.UpgradeGP >= pindexBestHeader->nHeight)
+        if (nVersion < MIN_PEER_PROTO_VERSION && chainparams.UpgradeGP < pindexBestHeader->nHeight)
         {
             // disconnect from peers older than this proto version
             LogPrintf("peer=%d using obsolete version %i; disconnecting\n", pfrom->id, nVersion);
