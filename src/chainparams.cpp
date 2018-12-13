@@ -99,10 +99,9 @@ public:
         consensus.BIP34Hash = uint256S("0x000007d91d1254d60e2dd1ae580383070a4ddffa4c64c2eeb4a2f9ecc0414343");
         consensus.powLimit = uint256S("0007ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nZawyLwmaAveragingWindow = 60;
-        consensus.XbufferTSAH = 80250;   //decide your block, new coins place it after N
+        consensus.XbufferTSAH = 80799;   //decide your block, new coins place it after N
         consensus.nPowTargetTimespan = 24 * 60 * 60 * 8; // Xchange: 1 day
         consensus.nPowTargetSpacing = 150;
-        consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1916; // 95% of 2016
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
@@ -229,7 +228,6 @@ public:
         consensus.XbufferTSAH =   50;//decide your block, new coins place it after N
         consensus.nPowTargetTimespan = 24 * 60 * 60 * 8; // Xchange: 1 day
         consensus.nPowTargetSpacing = 2.5 * 60; // Xchange: 2.5 minutes
-        consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 1512; // 75% for testchains
         consensus.nMinerConfirmationWindow = 2016; // nPowTargetTimespan / nPowTargetSpacing
@@ -351,7 +349,6 @@ public:
         consensus.XbufferTSAH =   50;//decide your block, new coins place it after N
         consensus.nPowTargetTimespan = 24 * 60 * 60 * 8; // Xchange: 1 day
         consensus.nPowTargetSpacing = 2.5 * 60; // Xchange: 2.5 minutes
-        consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
         consensus.nRuleChangeActivationThreshold = 108; // 75% for testchains
         consensus.nMinerConfirmationWindow = 144; // Faster than normal for regtest (144 instead of 2016)
