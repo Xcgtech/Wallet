@@ -58,6 +58,8 @@ struct Params {
     int nMasternodeMinimumConfirmations;
     /** Block height at which Zawy's LWMA difficulty algorithm becomes active */
     int XCGZawyLWMAHeight;
+    int UpgradeGP;
+
     /** Used to check majorities for block version upgrade */
     int nMajorityEnforceBlockUpgrade;
     int nMajorityRejectBlockOutdated;
