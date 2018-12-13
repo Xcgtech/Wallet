@@ -136,7 +136,8 @@ bool CSporkManager::IsSporkActive(int nSporkID)
             case SPORK_14_REQUIRE_SENTINEL_FLAG:            r = SPORK_14_REQUIRE_SENTINEL_FLAG_DEFAULT; break;
             case SPORK_15_Kill_OLD_VERSION:                 r = SPORK_15_Kill_OLD_VERSION_DEFAULT; break;
             case SPORK_16_ESCROW_ENABLED:                   r = SPORK_16_ESCROW_ENABLED_DEFAULT; break;
-            case SPORK_17_AUCTION_ENABLED:                   r = SPORK_17_AUCTION_ENABLED_DEFAULT; break;
+            case SPORK_17_AUCTION_ENABLED:                  r = SPORK_17_AUCTION_ENABLED_DEFAULT; break;
+            case SPORK_18_BUY_ENABLED:                      r = SPORK_18_BUY_ENABLED_DEFAULT; break;
             default:
                 LogPrint("spork", "CSporkManager::IsSporkActive -- Unknown Spork ID %d\n", nSporkID);
                 r = 4070908800ULL; // 2099-1-1 i.e. off by default
@@ -165,7 +166,9 @@ int64_t CSporkManager::GetSporkValue(int nSporkID)
         case SPORK_14_REQUIRE_SENTINEL_FLAG:            return SPORK_14_REQUIRE_SENTINEL_FLAG_DEFAULT;
         case SPORK_15_Kill_OLD_VERSION:                 return SPORK_15_Kill_OLD_VERSION_DEFAULT;
         case SPORK_16_ESCROW_ENABLED:                   return SPORK_16_ESCROW_ENABLED_DEFAULT;
-        case SPORK_17_AUCTION_ENABLED:                   return SPORK_17_AUCTION_ENABLED_DEFAULT;
+        case SPORK_17_AUCTION_ENABLED:                  return SPORK_17_AUCTION_ENABLED_DEFAULT;
+        case SPORK_18_BUY_ENABLED:                      return SPORK_18_BUY_ENABLED_DEFAULT;
+
 
         default:
             LogPrint("spork", "CSporkManager::GetSporkValue -- Unknown Spork ID %d\n", nSporkID);
@@ -187,7 +190,8 @@ int CSporkManager::GetSporkIDByName(std::string strName)
     if (strName == "SPORK_14_REQUIRE_SENTINEL_FLAG")            return SPORK_14_REQUIRE_SENTINEL_FLAG;
     if (strName == "SPORK_15_Kill_OLD_VERSION")                 return SPORK_15_Kill_OLD_VERSION;
     if (strName == "SPORK_16_ESCROW_ENABLED")                   return SPORK_16_ESCROW_ENABLED;
-    if (strName == "SPORK_17_AUCTION_ENABLED")                   return SPORK_17_AUCTION_ENABLED;
+    if (strName == "SPORK_17_AUCTION_ENABLED")                  return SPORK_17_AUCTION_ENABLED;
+    if (strName == "SPORK_18_BUY_ENABLED")                      return SPORK_18_BUY_ENABLED;
 
     LogPrint("spork", "CSporkManager::GetSporkIDByName -- Unknown Spork name '%s'\n", strName);
     return -1;
@@ -207,7 +211,9 @@ std::string CSporkManager::GetSporkNameByID(int nSporkID)
         case SPORK_14_REQUIRE_SENTINEL_FLAG:            return "SPORK_14_REQUIRE_SENTINEL_FLAG";
         case SPORK_15_Kill_OLD_VERSION:                 return "SPORK_15_Kill_OLD_VERSION";
         case SPORK_16_ESCROW_ENABLED:                   return "SPORK_16_ESCROW_ENABLED";
-        case SPORK_17_AUCTION_ENABLED:                   return "SPORK_17_AUCTION_ENABLED";
+        case SPORK_17_AUCTION_ENABLED:                  return "SPORK_17_AUCTION_ENABLED";
+        case SPORK_18_BUY_ENABLED:                      return "SPORK_18_BUY_ENABLED";
+
 
         default:
             LogPrint("spork", "CSporkManager::GetSporkNameByID -- Unknown Spork ID %d\n", nSporkID);

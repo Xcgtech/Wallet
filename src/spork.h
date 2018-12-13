@@ -17,7 +17,7 @@ class CSporkManager;
     - This would result in old clients getting confused about which spork is for what
 */
 static const int SPORK_START                                            = 10001;
-static const int SPORK_END                                              = 10016;
+static const int SPORK_END                                              = 10017;
 
 static const int SPORK_2_INSTANTSEND_ENABLED                            = 10001;
 static const int SPORK_3_INSTANTSEND_BLOCK_FILTERING                    = 10002;
@@ -31,6 +31,7 @@ static const int SPORK_14_REQUIRE_SENTINEL_FLAG                         = 10013;
 static const int SPORK_15_Kill_OLD_VERSION                              = 10014;
 static const int SPORK_16_ESCROW_ENABLED                                = 10015;
 static const int SPORK_17_AUCTION_ENABLED                               = 10016;
+static const int SPORK_18_BUY_ENABLED                                   = 10017;
 
 
 static const int64_t SPORK_2_INSTANTSEND_ENABLED_DEFAULT                = 4070908800ULL;            // ON
@@ -45,6 +46,7 @@ static const int64_t SPORK_14_REQUIRE_SENTINEL_FLAG_DEFAULT             = 407090
 static const int64_t SPORK_15_Kill_OLD_VERSION_DEFAULT                  = 23;
 static const int64_t SPORK_16_ESCROW_ENABLED_DEFAULT                    = 0;
 static const int64_t SPORK_17_AUCTION_ENABLED_DEFAULT                   = 0;
+static const int64_t SPORK_18_BUY_ENABLED_DEFAULT                       = 0;
 
 extern std::map<uint256, CSporkMessage> mapSporks;
 extern CSporkManager sporkManager;
