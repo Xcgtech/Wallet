@@ -1149,8 +1149,26 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             pfrom->fDisconnect = true;
             return false;
         }
-        //Must make an upgrade period, so we use the reason to upgrade
         if (nVersion < MIN_PEER_PROTO_VERSION && chainparams.GetConsensus().UpgradeGP < pindexBestHeader->nHeight)
+        {
+            // disconnect from peers older than this proto version
+            LogPrintf("peer=%d using obsolete version %i; disconnecting\n", pfrom->id, nVersion);
+            connman.PushMessageWithVersion(pfrom, INIT_PROTO_VERSION, NetMsgType::REJECT, strCommand, REJECT_OBSOLETE,
+                               strprintf("Version must be %d or greater", MIN_PEER_PROTO_VERSION));
+            pfrom->fDisconnect = true;
+            return false;
+        }
+        if (nVersion < PROTOCOL_VERSION && chainparams.GetConsensus().UpgradeGP < pindexBestHeader->nHeight)
+         {
+             // disconnect from peers older than this proto version FOLLOWING BLOCK chainparams.GetConsensus().UpgradeGP
+             LogPrintf("peer=%d using obsolete version %i; disconnecting\n", pfrom->id, nVersion);
+             connman.PushMessageWithVersion(pfrom, INIT_PROTO_VERSION, NetMsgType::REJECT, strCommand, REJECT_OBSOLETE,
+                                strprintf("Version must be", PROTOCOL_VERSION));
+             pfrom->fDisconnect = true;
+             return false;
+         }
+        //Must make an upgrade period, so we use the reason to upgrade
+        if (nVersion < MIN_PEER_PROTO_VERSION)
         {
             // disconnect from peers older than this proto version
             LogPrintf("peer=%d using obsolete version %i; disconnecting\n", pfrom->id, nVersion);
