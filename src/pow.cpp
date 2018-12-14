@@ -13,6 +13,7 @@
 #include "uint256.h"
 #include "util.h"
 #include "streams.h"
+#include "rpc/mining.cpp"
 
 #include <cmath>
 #include <math.h>
