@@ -113,6 +113,7 @@ unsigned int XbufferTSA(const CBlockHeader* pblock, const Consensus::Params& con
   //################################################################################################################
   //-------------------------------------------------Xbuffer--------------------------------------------------------
        SC=ST;//real solvetime checkpoint
+       if (ST>2*T)
        if(SS/N+1<=T/R){SS=(SS/(N+1)/T)*SS;}//if your avg solvetime is abnormally low or a new coin, drop SS to increase Buffer ST
                                            // resultihng in a faster pull towards the real T
        ST = (ST*((SS/(N+1)*1000)/T))/1000;// find the ratio real ST:Sum ST && and use it on the real ST.
@@ -143,7 +144,7 @@ unsigned int XbufferTSA(const CBlockHeader* pblock, const Consensus::Params& con
      // 1000 below is to prevent overflow on testnet
      TSATarget = (nextTarget*((1000*(m*T2+(ST-T2)*exm))/(m*ST)))/1000;
         } // No Xbuffer remove
-     if (TSATarget > powLimit) { TSATarget = powLimit; }
+     if (TSATarget > powLimit || ST>T) { TSATarget = powLimit; }
     LogPrintf("LWMA: %s\n  TSA: %s\n Diff: %s\n height: %s\n exm: %s\n f: %s\n, currentT:%s\n",nextTarget.GetHex(), TSATarget.GetHex(), GetDifficulty(pindexPrev), height, previousTimestamp, ST, templateTimestamp);
     return TSATarget.GetCompact();
 
