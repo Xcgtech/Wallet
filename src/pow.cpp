@@ -113,7 +113,7 @@ unsigned int XbufferTSA(const CBlockHeader* pblock, const Consensus::Params& con
   //################################################################################################################
   //-------------------------------------------------Xbuffer--------------------------------------------------------
        SC=ST;//real solvetime checkpoint
-       if (ST>2*T)
+    
        if(SS/N+1<=T/R){SS=(SS/(N+1)/T)*SS;}//if your avg solvetime is abnormally low or a new coin, drop SS to increase Buffer ST
                                            // resultihng in a faster pull towards the real T
        ST = (ST*((SS/(N+1)*1000)/T))/1000;// find the ratio real ST:Sum ST && and use it on the real ST.
