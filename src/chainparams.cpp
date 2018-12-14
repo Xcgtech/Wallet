@@ -100,7 +100,7 @@ public:
         consensus.powLimit = uint256S("0007ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nZawyLwmaAveragingWindow = 60;
         consensus.XbufferTSAH = 81300;   //decide your block, new coins place it after N
-        consensus.UpgradeGP = 81300;
+        consensus.UpgradeGP = 81400;
         consensus.nPowTargetTimespan = 24 * 60 * 60 * 8; // Xchange: 1 day
         consensus.nPowTargetSpacing = 150;
         consensus.fPowNoRetargeting = false;
