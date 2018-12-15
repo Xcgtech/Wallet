@@ -99,8 +99,8 @@ public:
         consensus.BIP34Hash = uint256S("0x000007d91d1254d60e2dd1ae580383070a4ddffa4c64c2eeb4a2f9ecc0414343");
         consensus.powLimit = uint256S("0007ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nZawyLwmaAveragingWindow = 60;
-        consensus.XbufferTSAH = 81370;   //decide your block, new coins place it after N
-        consensus.UpgradeGP = 81400;
+        consensus.XbufferTSAH = 81450;   //decide your block, new coins place it after N
+        consensus.UpgradeGP = 81460;
         consensus.nPowTargetTimespan = 24 * 60 * 60 * 8; // Xchange: 1 day
         consensus.nPowTargetSpacing = 150;
         consensus.fPowNoRetargeting = false;
@@ -149,11 +149,12 @@ public:
         genesis = CreateGenesisBlock(1529880846, 773617, 0x1e0ffff0, 1, 10 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
 
-      assert(consensus.hashGenesisBlock == uint256S("0x00000610385685211fe1d2da72926226f0025c4e47c5f05f66c0d5410fdf3c67"));
-      assert(genesis.hashMerkleRoot == uint256S("0x11dff3d3feab81bb973fa356781a7a2f42f8d431a4cb8b3eb3c094d1729135f1"));
+        assert(consensus.hashGenesisBlock == uint256S("0x00000610385685211fe1d2da72926226f0025c4e47c5f05f66c0d5410fdf3c67"));
+        assert(genesis.hashMerkleRoot == uint256S("0x11dff3d3feab81bb973fa356781a7a2f42f8d431a4cb8b3eb3c094d1729135f1"));
 
-      vSeeds.push_back(CDNSSeedData("xcgtech.com", "seed.xcgtech.com"));
-      vSeeds.push_back(CDNSSeedData("xcgtech.com", "explorer.xcgtech.com"));
+        vSeeds.push_back(CDNSSeedData("xcgtech.com", "seed.xcgtech.com"));
+        vSeeds.push_back(CDNSSeedData("xcgtech.com", "explorer.xcgtech.com"));
+        vSeeds.push_back(CDNSSeedData("xcgtech.com", "masternodes.xcgpro.com"));
 
         // Xchange addresses start with 'X'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,76);
@@ -185,13 +186,12 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            ( 1, uint256S("0x00000d97306a31ba6bbe17df9f4b5440e94a529e85aeb7d66d217d562cf3834d")),
-        //    (1, uint256S("0x00000644f90979a06d528920face4b3b455d5d7240e502294873704f34a29330"))
-      //    (138, uint256S("0x000002dba1860095f30457b26032ded66e061937d37458049232098fee871b43")),
-        //    1525504477,     // * UNIX timestamp of last checkpoint block
-        //    172,            // * total number of transactions between genesis and last checkpoint
-                            // (the tx=... number in the SetBestChain debug.log lines)
-          //  1000            // * estimated number of transactions per day after checkpoint */
+            (         1, uint256S("0x000001351861fa22b2fe248516243ca61df3c7e4701452b919a847fc2529365f"))
+            (     79997, uint256S("0x00000000017036a6ea5877a31c22c2b5fb56ed871851bac5b46daa3464b1c2eb")),
+              1544597320,     // * UNIX timestamp of last checkpoint block
+              115295,         // * total number of transactions between genesis and last checkpoint
+                              // (the tx=... number in the SetBestChain debug.log lines)
+              1200            // * estimated number of transactions per day after checkpoint */
         };
     }
 };
@@ -267,16 +267,13 @@ public:
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 1000;
 
+        genesis = CreateGenesisBlock(1529880820, 4655421, 0x1e0ffff0, 1, 50 * COIN);
+        consensus.hashGenesisBlock = genesis.GetHash();
 
-          genesis = CreateGenesisBlock(1529880820, 4655421, 0x1e0ffff0, 1, 50 * COIN);
-          consensus.hashGenesisBlock = genesis.GetHash();
-
-         assert(consensus.hashGenesisBlock == uint256S("0x00000441d29f3b391b96e535a50154c4a94975edf83d9006f757e780d05acc4d"));
+        assert(consensus.hashGenesisBlock == uint256S("0x00000441d29f3b391b96e535a50154c4a94975edf83d9006f757e780d05acc4d"));
         assert(genesis.hashMerkleRoot == uint256S("0xa2e322781d8092c654a66bba06c12ec379bbff3927f70a0bf54c85a164aecf7b"));
 
-
-        vSeeds.push_back(CDNSSeedData("Xchangedot.io",  "testnet-seed.Xchangedot.io"));
-        vSeeds.push_back(CDNSSeedData("masternode.io", "test.dnsseed.masternode.io"));
+        vSeeds.push_back(CDNSSeedData("xcgpro.com", "testnet.xcgpro.com"));
 
         // Testnet Xchange addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
@@ -383,8 +380,8 @@ public:
         genesis = CreateGenesisBlock(1529880830, 8567026, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
 
-       assert(consensus.hashGenesisBlock == uint256S("0x000007c36318f5eab4f88c47c6c7d46e2de718a523fcfd3eea97612dc8b56acf"));
-      assert(genesis.hashMerkleRoot == uint256S("0xa2e322781d8092c654a66bba06c12ec379bbff3927f70a0bf54c85a164aecf7b"));
+        assert(consensus.hashGenesisBlock == uint256S("0x000007c36318f5eab4f88c47c6c7d46e2de718a523fcfd3eea97612dc8b56acf"));
+        assert(genesis.hashMerkleRoot == uint256S("0xa2e322781d8092c654a66bba06c12ec379bbff3927f70a0bf54c85a164aecf7b"));
 
         vFixedSeeds.clear(); //! Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();  //! Regtest mode doesn't have any DNS seeds.
