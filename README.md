@@ -1,6 +1,9 @@
 Xchange Core staging tree 0.24.0
 ===============================
 
+This repository contains the core for XCG - Xchange. 
+
+This version DOES NOT contain the Escrow or Auction (Coming Soon) features.
 
 https://www.xcgtech.com
 
