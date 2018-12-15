@@ -425,7 +425,7 @@ void static BitcoinMiner(const CChainParams& chainparams, CConnman& connman)
                 // on an obsolete chain. In regtest mode we expect to fly solo.
                 do {
                     bool fvNodesEmpty = connman.GetNodeCount(CConnman::CONNECTIONS_ALL) == 0;
-                    LogPrintf("DashMiner -- loop: fvNodesEmpty: %d, IsInitialBlockDownload: %d, IsSynced:%d \n",!fvNodesEmpty, !IsInitialBlockDownload(), masternodeSync.IsSynced());
+                    LogPrintf("XchangeMiner -- loop: fvNodesEmpty: %d, IsInitialBlockDownload: %d, IsSynced:%d \n",!fvNodesEmpty, !IsInitialBlockDownload(), masternodeSync.IsSynced());
                     if (!fvNodesEmpty && !IsInitialBlockDownload() && masternodeSync.IsSynced())
                         break;
                     MilliSleep(1000);
