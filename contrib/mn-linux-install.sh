@@ -1,13 +1,13 @@
 #!/bin/bash
 
-RELEASEFILE="https://github.com/Xcgtech/Wallet/releases/download/no-fee/Xchangecore-0.23.0.tar.gz"
+RELEASEFILE="https://github.com/Xcgtech/Wallet/releases/download/2.7.8/xchange-linux-Xbuff.tar.gz"
 SENTINELGIT="https://github.com/cryptforall/sentinel.git" # leave empty if coin has no sentinel
 
 instance="" # only when doing multiple instances
 daemon="Xchanged"
 cli="Xchange-cli"
 stopcli="stop"
-archive_path="Xchangecore-0.23.0/bin/"
+archive_path="xchange-linux-Xbuff"
 core_dir=".Xchangecore"
 config_path="$core_dir/Xchange.conf"
 node_user="xcg""$instance"
