@@ -1,13 +1,13 @@
 #!/bin/bash
 
-RELEASEFILE="https://github.com/Xcgtech/Wallet/releases/download/2.7.8/xchange-linux-Xbuff.tar.gz"
+RELEASEFILE="https://github.com/Xcgtech/Wallet/releases/download/0.24.0/Xchangecore-0.24.0.tar.gz"
 SENTINELGIT="https://github.com/cryptforall/sentinel.git" # leave empty if coin has no sentinel
 
 instance="" # only when doing multiple instances
 daemon="Xchanged"
 cli="Xchange-cli"
 stopcli="stop"
-archive_path="xchange-linux-Xbuff"
+archive_path="Xchangecore-0.24.0/bin/"
 core_dir=".Xchangecore"
 config_path="$core_dir/Xchange.conf"
 node_user="xcg""$instance"
@@ -15,7 +15,7 @@ mainnet="8693"
 disablewallet="" # risky, a lot of coins that implement zerocoin/darksend functionality break the daemon with this
 
 # this variable is used to keep track of the upgrades to our environment
-checkpoint="20180730"
+checkpoint="20181217"
 installer_checkpoint="/home/$node_user/$core_dir/.installer_checkpoint"
 
 # other variables
@@ -125,7 +125,7 @@ function install_cronjob {
 	echo "Installing extra cronjob."
 	
 	crontab -l | { cat; echo "SHELL=/bin/bash" ;} | crontab -
-	crontab -l | { cat; echo "*/30 * * * * (( (\$(curl -s https://explorer.xcgtech.com/api/getblockcount) - \$($cli getblockcount)) > 10 )) && systemctl restart $daemon$instance-reindex" ;} | crontab -
+	crontab -l | { cat; echo "*/30 * * * * (( (\$(curl -s https://explorer.xcgtech.com/api/getblockcount) - \$($cli getblockcount)) > 10 )) && systemctl is-enabled $daemon$instance && systemctl restart $daemon$instance-reindex" ;} | crontab -
 }
 
 function setup_initial_config {
