@@ -69,14 +69,14 @@ unsigned int XbufferTSA(const CBlockHeader* pblock, const Consensus::Params& con
 
     if ( targetGuess > powLimit ) { targetGuess=powLimit; }
     if ( height <= N+1 ) { return targetGuess.GetCompact(); }
-    
+
     arith_uint256 sumTarget, previousTarget, nextTarget;
     int64_t thisTimestamp, previousTimestamp;
     int64_t t = 0, j = 0, SumWAvgtime=0, SS=0;   // Remove SS if following only LWMA and TSA
-    
+
     const CBlockIndex* blockPreviousTimestamp = pindexPrev->GetAncestor(height - N);
     previousTimestamp = blockPreviousTimestamp->GetBlockTime();
-    
+
     // Loop through N most recent blocks. // LWMA previous target-> bits and Timestamps are the focys
     for (int64_t i = height - N + 1; i <= height; i++) {
           const CBlockIndex* block = pindexPrev->GetAncestor(i);
@@ -90,12 +90,12 @@ unsigned int XbufferTSA(const CBlockHeader* pblock, const Consensus::Params& con
           target.SetCompact(block->nBits);
           sumTarget += target / (k * N);
     }
-    
+
     nextTarget = t * sumTarget;
-    
+
     // The above completes the BTG/MicroBitcoin/Zawy code except last 3 lines were removed
     // Now begin TSA.
-    
+
     // R is the "softness" of the per-block TSA adjustment to the DA. R<6 is aggressive.
     int64_t R = 2;  assert(R > 1);
     // "m" is a factor to help get e^x from integer math. 1E5 was not as precise
@@ -106,23 +106,23 @@ unsigned int XbufferTSA(const CBlockHeader* pblock, const Consensus::Params& con
     int64_t templateTimestamp = pblock->nTime;
     previousTimestamp = pindexPrev->GetBlockTime();
     const CBlockIndex* badblockcheck = pindexPrev->GetAncestor(height-1); //Only for Xbuffer
-    
+
     ST = std::min(templateTimestamp - previousTimestamp, 6*T);
 
     //################################################################################################################
     //-------------------------------------------------Xbuffer--------------------------------------------------------
     SC=ST; //real solvetime checkpoint
-    
+
     // if your avg solvetime is abnormally low or a new coin, drop SS to increase Buffer ST
     // resulting in a faster pull towards the real T
     if ( SS/N + 1 <= T/R ) { SS = ( SS/(N + 1)/T )*SS; }
-    
+
     // find the ratio real ST:Sum ST && and use it on the real ST.
     ST = ( ST*( ( SS/(N + 1)*1000 )/T ) ) / 1000;
-    
+
     // checkpoint for new coins and network issues - don't remove, keep for new coins.
     if ( SC > T/R && ST == 0 ) { ST = SC; }
-    
+
     // Xbuffer - Mining equalizer. If ST < T/2+R then Next block is a free-fall block.
     // Old Miners benefit from new H/S increase
     if ( (previousTimestamp - badblockcheck->GetBlockTime()) <= (T/R) + R && ST<T ) { TSATarget = nextTarget*(1/T); }
@@ -148,8 +148,8 @@ unsigned int XbufferTSA(const CBlockHeader* pblock, const Consensus::Params& con
         TSATarget = (nextTarget*((1000*(m*T2 + (ST - T2)*exm))/(m*ST)))/1000;
     }
     // No Xbuffer remove
-    
-    if (TSATarget > powLimit || ST>T) { TSATarget = powLimit; }
+    if (pindexPrev->GetBlockTime()<1546585506){   if (TSATarget > powLimit || ST>T) { TSATarget = powLimit; }
+       }else if (TSATarget > powLimit || ST>(30+T)) { TSATarget = powLimit; }
     if (fDebug) { LogPrintf("LWMA: %s\n  TSA: %s\n Diff: %s\n height: %s\n exm: %s\n f: %s\n, currentT:%s\n",nextTarget.GetHex(), TSATarget.GetHex(), GetDifficulty(pindexPrev), height, previousTimestamp, ST, templateTimestamp); }
     return TSATarget.GetCompact();
 }
@@ -175,7 +175,7 @@ unsigned int LwmaCalculateNextWorkRequired(const CBlockIndex* pindexLast, const 
         const CBlockIndex* block_Prev = block->GetAncestor(i - 1);
         int64_t solvetime = block->GetBlockTime() - block_Prev->GetBlockTime();
         solvetime = std::max(-FTL, std::min(solvetime, 6*T));
-        
+
         j++;
         t += solvetime * j;  // Weighted solvetime sum.
 

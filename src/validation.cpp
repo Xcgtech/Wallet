@@ -3135,10 +3135,16 @@ bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state, bool f
                          REJECT_INVALID, "high-hash");
 
     // Check timestamp
-    if (block.GetBlockTime() > GetAdjustedTime() + 450)
-        return state.Invalid(error("CheckBlockHeader(): block timestamp too far in the future"),
-                             REJECT_INVALID, "time-too-new");
-
+  if (block.GetBlockTime()<1546585506){  // 01/04/2019 @ 7:05am (UTC)
+  if (block.GetBlockTime() > GetAdjustedTime() + 450)
+      return state.Invalid(error("CheckBlockHeader(): block timestamp too far in the future"),
+                           REJECT_INVALID, "time-too-new");
+      }
+      else {
+        if (block.GetBlockTime() > GetAdjustedTime() + 30)
+            return state.Invalid(error("CheckBlockHeader(): block timestamp too far in the future"),
+                                 REJECT_INVALID, "time-too-new");
+          }
     return true;
 }
 
