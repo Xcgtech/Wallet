@@ -1,7 +1,7 @@
-Xchange Core 0.12.1
+Xchange Core
 =====================
 
-This is the official reference wallet for Xchange digital currency and comprises the backbone of the Xchange peer-to-peer network. You can [download Xchange Core](https://www.Xchange.org/downloads/) or [build it yourself](#building) using the guides below.
+This is the official reference wallet for Xchange digital currency and comprises the backbone of the Xchange peer-to-peer network. You can [download Xchange Core](https://github.com/Xcgtech/Wallet/releases) or [build it yourself](#building) using the guides below.
 
 Running
 ---------------------
@@ -24,10 +24,7 @@ Drag Xchange-Qt to your applications folder, and then run Xchange-Qt.
 
 ### Need Help?
 
-* See the [Xchange documentation](https://Xchange.atlassian.net/wiki/display/DOC)
-for help and more information.
-* Ask for help on [#Xchange](http://webchat.freenode.net?channels=Xchange) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net?channels=Xchange).
-* Ask for help on the [XchangeTalk](https://Xchangetalk.org/) forums.
+* Ask for help on the [Xchange](https://discord.gg/5XmEXyJ) Discord group.
 
 Building
 ---------------------
@@ -55,10 +52,6 @@ The Xchange Core repo's [root README](/README.md) contains relevant information 
 - [Shared Libraries](shared-libraries.md)
 - [BIPS](bips.md)
 - [Dnsseed Policy](dnsseed-policy.md)
-
-### Resources
-* Discuss on the [XchangeTalk](https://Xchangetalk.org/) forums, in the Development & Technical Discussion board.
-* Discuss on [#Xchange](http://webchat.freenode.net/?channels=Xchange) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=Xchange).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)
