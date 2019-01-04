@@ -149,7 +149,7 @@ unsigned int XbufferTSA(const CBlockHeader* pblock, const Consensus::Params& con
     }
     // No Xbuffer remove
     if (pindexPrev->GetBlockTime()<1546585506){   if (TSATarget > powLimit || ST>T) { TSATarget = powLimit; }
-       }else if (TSATarget > powLimit || ST>(30+T)) { TSATarget = powLimit; }
+         }else if (TSATarget > powLimit || ST>(30+T)) { TSATarget = powLimit; }
     if (fDebug) { LogPrintf("LWMA: %s\n  TSA: %s\n Diff: %s\n height: %s\n exm: %s\n f: %s\n, currentT:%s\n",nextTarget.GetHex(), TSATarget.GetHex(), GetDifficulty(pindexPrev), height, previousTimestamp, ST, templateTimestamp); }
     return TSATarget.GetCompact();
 }
