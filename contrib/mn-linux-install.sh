@@ -1,13 +1,13 @@
 #!/bin/bash
 
-RELEASEFILE="https://github.com/Xcgtech/Wallet/releases/download/0.24.1/Xchangecore-0.24.1.tar.gz"
+RELEASEFILE="https://github.com/Xcgtech/Wallet/releases/download/0.24.2/Xchangecore-0.24.2.tar.gz"
 SENTINELGIT="https://github.com/cryptforall/sentinel.git" # leave empty if coin has no sentinel
 
 instance="" # only when doing multiple instances
 daemon="Xchanged"
 cli="Xchange-cli"
 stopcli="stop"
-archive_path="Xchangecore-0.24.1/bin/"
+archive_path="Xchangecore-0.24.2/bin/"
 core_dir=".Xchangecore"
 config_path="$core_dir/Xchange.conf"
 node_user="xcg""$instance"
@@ -15,7 +15,7 @@ mainnet="8693"
 disablewallet="" # risky, a lot of coins that implement zerocoin/darksend functionality break the daemon with this
 
 # this variable is used to keep track of the upgrades to our environment
-checkpoint="20190104"
+checkpoint="20190205"
 installer_checkpoint="/home/$node_user/$core_dir/.installer_checkpoint"
 
 # other variables
