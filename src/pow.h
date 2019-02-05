@@ -27,6 +27,7 @@ unsigned int CalculateNextWorkRequiredBTC(const CBlockIndex* pindexLast, int64_t
 unsigned int LwmaGetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params&);
 unsigned int LwmaCalculateNextWorkRequired(const CBlockIndex* pindexLast, const Consensus::Params& params);
 unsigned int XbufferTSA(const CBlockHeader* pblock, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev);
+unsigned int XbufferTSA2(const CBlockHeader* pblock, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev);
 
 
 

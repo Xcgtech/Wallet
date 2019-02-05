@@ -36,12 +36,128 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
 unsigned int LwmaGetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {
-  if( params.XbufferTSAH<pindexLast->nHeight )  {
-    return XbufferTSA(pblock,params,pindexLast);
-  } else {
-      return LwmaCalculateNextWorkRequired(pindexLast,params);}
+  if( params.XbufferTSA2H<pindexLast->nHeight )  {
+      return XbufferTSA2(pblock,params,pindexLast);
+      }else if( params.XbufferTSAH<pindexLast->nHeight ){
+                return XbufferTSA(pblock,params,pindexLast);
+          }else {return LwmaCalculateNextWorkRequired(pindexLast,params);}
 }
+unsigned int XbufferTSA2(const CBlockHeader* pblock, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev)
+{
+    // Xbuffer Xchange (c) 2018 Kalcan
+    // TSA Copyright (c) 2018 Zawy, Kalcan (XCG)
+    // LWMA Copyright (c) 2017-2018 The Bitcoin Gold developers
+    // Specific LWMA updated by iamstenman (MicroBitcoin)
+    // MIT License
+    // Recommend N=120.  Requires Future Time Limit to be set to 30 instead of 7200
+    // See FTL instructions here:
+    // https://github.com/zawy12/difficulty-algorithms/issues/3#issuecomment-442129791
+    // Important: Pow.cpp is not the only area that needs new conditions or code for TSA.
+    // ONLY LWMA and TSA copy between the #######'s
+    //################################################################################################################
+    // Begin LWMA
 
+    const int64_t T = consensusParams.nPowTargetSpacing;
+    const int64_t N = consensusParams.nZawyLwmaAveragingWindow;
+    const int64_t k = N * (N + 1) * T / 2;
+    const int64_t height = pindexPrev->nHeight;
+    const arith_uint256 powLimit = UintToArith256(consensusParams.powLimit);
+
+    // For startup:
+    int64_t hashrateGuess = 1000; // hashes per second expected at startup
+    arith_uint256 targetGuess = 115E75/(hashrateGuess*T); // 115E75 =~ pow(2,256)
+
+    if ( targetGuess > powLimit ) { targetGuess=powLimit; }
+    if ( height <= N+1 ) { return targetGuess.GetCompact(); }
+
+    arith_uint256 sumTarget, previousTarget, nextTarget;
+    int64_t thisTimestamp, previousTimestamp;
+    int64_t t = 0, j = 0, SumWAvgtime=0, SS=0;   // Remove SS if following only LWMA and TSA
+
+    const CBlockIndex* blockPreviousTimestamp = pindexPrev->GetAncestor(height - N);
+    previousTimestamp = blockPreviousTimestamp->GetBlockTime();
+
+    // Loop through N most recent blocks. // LWMA previous target-> bits and Timestamps are the focys
+    for (int64_t i = height - N + 1; i <= height; i++) {
+          const CBlockIndex* block = pindexPrev->GetAncestor(i);
+          thisTimestamp = (block->GetBlockTime() > previousTimestamp) ? block->GetBlockTime() : previousTimestamp + 1;
+          int64_t solvetime = std::min(6 * T, thisTimestamp - previousTimestamp);
+          previousTimestamp = thisTimestamp;
+          SS+=solvetime;
+          j++;
+          t += solvetime * j; // Weighted solvetime sum.
+          arith_uint256 target;
+          target.SetCompact(block->nBits);
+          sumTarget += target / (k * N);
+    }
+
+    nextTarget = t * sumTarget;
+
+    // The above completes the BTG/MicroBitcoin/Zawy code except last 3 lines were removed
+    // Now begin TSA.
+
+    // R is the "softness" of the per-block TSA adjustment to the DA. R<6 is aggressive.
+    int64_t R = 2;  assert(R > 1);
+    // "m" is a factor to help get e^x from integer math. 1E5 was not as precise
+    int64_t m = 1E6;
+    arith_uint256  TSATarget;
+    int64_t exm = m;  // This will become m*e^x. Initial value is m*e^(mod(<1)) = m.
+    int64_t SC, ST, i, f; //remove SC for TSA & LWMA
+    int64_t templateTimestamp = pblock->nTime;
+    previousTimestamp = pindexPrev->GetBlockTime();
+    const CBlockIndex* badblockcheck = pindexPrev->GetAncestor(height-1); //Only for Xbuffer
+
+    ST = std::min(templateTimestamp - previousTimestamp, 6*T);
+
+    //################################################################################################################
+    //-------------------------------------------------Xbuffer--------------------------------------------------------
+    SC=ST; //real solvetime checkpoint
+
+    // if your avg solvetime is abnormally low or a new coin, drop SS to increase Buffer ST
+    // resulting in a faster pull towards the real T
+    if ( SS/N + 1 <= T/R ) { SS = ( SS/(N + 1)/T )*SS; }
+
+    // find the ratio real ST:Sum ST && and use it on the real ST.
+    ST = ( ST*( ( SS/(N + 1)*1000 )/T ) ) / 1000;
+
+    // checkpoint for new coins and network issues - don't remove, keep for new coins.
+    if ( SC > T/R && ST == 0 ) { ST = SC; }
+    if ( ST < 0 ) { ST = 0; }
+    // Xbuffer - Mining equalizer. If ST < T/2+R then Next block is a free-fall block.
+    // Old Miners benefit from new H/S increase
+    if ( (previousTimestamp - badblockcheck->GetBlockTime()) <= T/R && ST<(T-(T/5)) ) { TSATarget = nextTarget*(1/5); }
+    // The Value 10 is user defined, relates to  speed of diff change on the Xbuffer
+    // sets min and max.
+    // ST will not be constant unti SS/N + 1 = T
+    // End of solve time will be a free-fall block
+    else if ( ST <= T/5 ) { TSATarget = nextTarget*(1/5); }
+    //TSA in a pocket based on the length of T/R to allow fair mining based on raw H/S for Xbuffer.
+    else {
+        //-------------------------------------------------Xbuffer--------------------------------------------------------
+        //################################################################################################################
+        // It might be good to turn this e^x equation into a look-up table;
+        for ( i = 1; i <= ST/T/R ; i++ ) {
+          exm = (exm*static_cast<int64_t>(2.71828*m))/m;
+        }
+        f = ST % (T*R);
+        exm = (exm*(m + (f*(m + (f*(m + (f*(m + (f*m)/(4*T*R)))/(3*T*R)))/(2*T*R)))/(T*R)))/m;
+        // 1000 below is to prevent overflow on testnet
+        TSATarget = (nextTarget*((1000*(m*T + (ST - T)*exm))/(m*ST)))/1000;
+
+    }
+    // No Xbuffer remove
+    if (TSATarget > powLimit) { TSATarget = powLimit; }
+
+    if (fDebug) { LogPrintf("\n"
+        "\tLWMA Target: %s\n"
+        "\tTSA Target: %s\n"
+        "\tDiff: %s\n"
+        "\tHeight: %s\n"
+        "\tExm: %s\n"
+        "\tF: %s\n"
+        "\tCurrentTime:%s\n", nextTarget.GetHex(), TSATarget.GetHex(), GetDifficulty(pindexPrev), height, previousTimestamp, ST, templateTimestamp); }
+    return TSATarget.GetCompact();
+}
 unsigned int XbufferTSA(const CBlockHeader* pblock, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev)
 {
     // Xbuffer Xchange (c) 2018 Kalcan

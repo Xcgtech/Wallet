@@ -100,6 +100,7 @@ public:
         consensus.powLimit = uint256S("0007ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.nZawyLwmaAveragingWindow = 60;
         consensus.XbufferTSAH = 90000;   //decide your block, new coins place it after N
+        consensus.XbufferTSA2H = 121000;
         consensus.UpgradeGP = 90010;
         consensus.nPowTargetTimespan = 24 * 60 * 60 * 8; // Xchange: 1 day
         consensus.nPowTargetSpacing = 150;
@@ -228,6 +229,7 @@ public:
         consensus.nZawyLwmaAveragingWindow = 45;
         consensus.XbufferTSAH =   50;//decide your block, new coins place it after N
         consensus.UpgradeGP = 50;
+        consensus.XbufferTSA2H = 100;
         consensus.nPowTargetTimespan = 24 * 60 * 60 * 8; // Xchange: 1 day
         consensus.nPowTargetSpacing = 2.5 * 60; // Xchange: 2.5 minutes
         consensus.fPowNoRetargeting = false;
@@ -346,6 +348,7 @@ public:
         consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
         consensus.nZawyLwmaAveragingWindow = 45;
         consensus.XbufferTSAH =   50;//decide your block, new coins place it after N
+        consensus.XbufferTSA2H = 100; 
         consensus.UpgradeGP = 50;
         consensus.nPowTargetTimespan = 24 * 60 * 60 * 8; // Xchange: 1 day
         consensus.nPowTargetSpacing = 2.5 * 60; // Xchange: 2.5 minutes
