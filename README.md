@@ -1,4 +1,4 @@
-Xchange Core staging tree 0.24.1
+Xchange Core staging tree 0.24.2
 ===============================
 
 This repository contains the core for XCG - Xchange. 
